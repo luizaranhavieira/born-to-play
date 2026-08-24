@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, maximum-scale=1" />
+  <title>Born to Play</title>
+  <meta name="description" content="Painel de gestão da escola de inglês para bebês." />
+
+  <!-- PWA / iOS -->
+  <link rel="manifest" href="manifest.webmanifest" />
+  <meta name="theme-color" content="#FDF7EE" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+  <meta name="apple-mobile-web-app-title" content="Born to Play" />
+  <link rel="apple-touch-icon" href="apple-touch-icon.png" />
+  <link rel="icon" href="icon.svg" type="image/svg+xml" />
+
+  <style>
+    html, body { margin: 0; padding: 0; background: #FDF7EE; }
+    #root { min-height: 100vh; }
+    /* espaço para a barra de status/notch do iPhone quando em tela cheia */
+    body { padding-top: env(safe-area-inset-top); }
+    #splash {
+      position: fixed; inset: 0; background: #FDF7EE; display: grid; place-items: center; z-index: 9999;
+      transition: opacity .3s; font-family: system-ui, sans-serif;
+    }
+    #splash.hide { opacity: 0; pointer-events: none; }
+  </style>
+</head>
+<body>
+  <div id="splash"><img src="icon-192.png" width="72" height="72" alt="Born to Play" style="border-radius:20px" /></div>
+  <div id="root"></div>
+  <script src="bundle.js" defer></script>
+  <script>
+    // esconde o splash quando o app montar
+    window.addEventListener('load', function () {
+      setTimeout(function () {
+        var s = document.getElementById('splash');
+        if (s) s.classList.add('hide');
+      }, 500);
+    });
+    // registra o service worker (funcionar offline)
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', function () {
+        navigator.serviceWorker.register('sw.js').catch(function () {});
+      });
+    }
+  </script>
+</body>
+</html>
