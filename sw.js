@@ -1,6 +1,6 @@
 // Service worker — deixa o Born to Play funcionar offline.
 // Ao publicar uma versão nova, troque o número do cache (v1 -> v2) para forçar atualização.
-const CACHE = 'borntoplay-v2';
+const CACHE = 'borntoplay-v3';
 const ASSETS = [
   './',
   './index.html',
